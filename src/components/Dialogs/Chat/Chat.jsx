@@ -9,15 +9,13 @@ const Chat = (props) => {
   const massages = props.massages.map(item => <Massage item={item} />)
   const newMassage = React.createRef();
 
-  function setNewMassageValueToState() {
+  function updateNewMassageValue() {
     const text = newMassage.current.value;
-    const action = getNewValueAction(text);
-    props.dispatch(action);
+    props.setNewMassageValueToState(text);
   }
 
   function updateState() {
-    const action = getUpdatedStateAction();
-    props.dispatch(action);
+    props.updateState();
   }
 
   return (
@@ -27,13 +25,13 @@ const Chat = (props) => {
         <textarea 
           ref={newMassage} 
           value={props.newMassageValue} 
-          onChange={ setNewMassageValueToState } 
+          onChange={updateNewMassageValue} 
         />
-        <button onClick={ updateState }>Send</button>
+        <button onClick={updateState}>Send</button>
       </div>
 
       <div className={classes.chat}>
-        { massages }
+        {massages}
       </div>
       
     </div>

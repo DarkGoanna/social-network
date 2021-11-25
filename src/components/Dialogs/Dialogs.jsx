@@ -1,5 +1,6 @@
 import classes from './Dialogs.module.css'
 import Chat from './Chat/Chat'
+import ChatContainer from './Chat/ChatContainer'
 import People from './People/People'
 
 function Dialogs (props) {
@@ -11,11 +12,7 @@ function Dialogs (props) {
           <People/>
         </div>
         <div className={classes.chat}>
-          <Chat 
-            massages={props.dilogsPage.massages} 
-            newMassageValue={props.dilogsPage.newMassageValue}
-            dispatch={props.dispatch} 
-          />
+          <ChatContainer store={props.store}/>
         </div>
       </div>
     </section>

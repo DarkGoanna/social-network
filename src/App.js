@@ -14,9 +14,7 @@ function App(props) {
                 <main className="content">
                     <div className="container">
                         <Route exact path="/" render={() => <Home />} />
-                        <Route path="/dialogs" render={() =>
-                            <Dialogs dilogsPage={props.state.dilogsPage} dispatch={props.dispatch} />
-                        } />
+                        <Route path="/dialogs" render={() => <Dialogs store={props.store} />} />
                     </div>
                 </main>
                 <Footer />

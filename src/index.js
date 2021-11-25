@@ -6,19 +6,19 @@ import App from './App'
 import './index.css'
 
 
-function rerenderUI(state) {
+function rerenderUI(store) {
     ReactDOM.render(
         <React.StrictMode >
-            <App state={state} dispatch={store.dispatch.bind(store)} />
+            <App store={store} />
         </React.StrictMode>,
         document.getElementById('root')
     )
 }
 
-rerenderUI(store.getState()); // first load
+rerenderUI(store); // first load
 
 store.subscribe(() => {
-    rerenderUI(store.getState());
+    rerenderUI(store);
 });
 
 // If you want to start measuring performance in your app, pass a function
