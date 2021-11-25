@@ -1,13 +1,91 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.title-1,
+h1 {
+  font-weight: 400;
+  font-size: 36px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.title-2,
+h2 {
+  font-weight: 400;
+  font-size: 28px;
+}
+
+.title-3,
+h3 {
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.btn {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.2;
+  width: 180px;
+  height: 52px;
+  background: transparent;
+  border-radius: 25px;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid inherit;
+}
+
+.content {
+  background: gainsboro;
+  width: 100%;
+  min-height: calc(100vh - 120px);
+  padding: 30px 0;
+}
+
+.container {
+  max-width: 1230px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.scrollOff {
+  overflow-y: hidden;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.2;
+  background-color: #fff;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+input,
+textarea {
+  outline: none;
+  font-family: "Open Sans", sans-serif;
+}
+
+svg {
+  pointer-events: none;
 }
