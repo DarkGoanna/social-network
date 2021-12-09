@@ -12,12 +12,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch){
   return {
     setNewMassageValueToState: (text) => {
-      const action = getNewValueAC(text);
-      dispatch(action);
+      dispatch( getNewValueAC(text) );
     },
     updateState: () => {
-      const action = getUpdatedStateAC();
-      dispatch(action);
+      dispatch( getUpdatedStateAC() );
     }
   }
 }

@@ -35,6 +35,11 @@ const initialState = {
   },
 }
 
+/**
+ * @param {object} state 
+ * @param {object} action включает обязательное свойство 'type' и необязательные дополнительные свойства
+ * @returns {object} state
+ */
 const dialogReduser = (state = initialState.dilogsPage, action) => {
   switch (action.type) {
     case actionTypes.updateState:
@@ -59,6 +64,10 @@ const dialogReduser = (state = initialState.dilogsPage, action) => {
 
 export default dialogReduser;
 
+/**
+ * @param {string} massage текущее значение в текстовом поле
+ * @returns {object} action
+ */
 export const getNewValueAC = (massage) => {
   return {
     type: actionTypes.newValue,
@@ -66,8 +75,7 @@ export const getNewValueAC = (massage) => {
   }
 }
 
-export const getUpdatedStateAC = () => {
-  return {
-    type: actionTypes.updateState,
-  }
-}
+/**
+ * @returns {object} action
+ */
+export const getUpdatedStateAC = () => ({ type: actionTypes.updateState })

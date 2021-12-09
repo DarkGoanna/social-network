@@ -11,6 +11,9 @@ class People extends React.Component {
     })
   }
 
+  /**
+   * @param {number} pageNumber номер текущей страницы
+   */
   showPage = (pageNumber) => {
     const count = this.props.countOnPage;
     axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${count}&page=${pageNumber}`)
@@ -19,12 +22,16 @@ class People extends React.Component {
       })
   }
 
+  /**
+   * @param {number} pageNumber номер текущей страницы
+   */
   toggleActivePage = (pageNumber) => {
     this.props.toggleActivePage(pageNumber);
     this.showPage(pageNumber);
   }
 
   render = () => {
+    // style
     const {peopleList, pagination, paginationButton, active} = style;
 
     // people names
@@ -33,6 +40,7 @@ class People extends React.Component {
     // pagination
     const buttonsCount = Math.ceil(this.props.totalCount / this.props.countOnPage);
     const buttons = [];
+
     for (let i = 1; i <= buttonsCount; i++) {
       const classes = this.props.active === i ? paginationButton + ' ' + active : paginationButton;
 

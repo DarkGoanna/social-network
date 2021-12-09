@@ -15,12 +15,9 @@ const Chat = (props) => {
   } = props;
   
   const massages = massagesData.map(item => <Massage item={item} />);
-  
   const textarea = React.createRef();
-
-  function updateValue() { setNewMassageValueToState(textarea.current.value) };
-
-  function sendMassage() { updateState() };
+  const updateValue = () => { setNewMassageValueToState(textarea.current.value) };
+  const sendMassage = () => { updateState() };
 
   return (
     <div className={wrapper}>

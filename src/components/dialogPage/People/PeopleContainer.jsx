@@ -10,19 +10,17 @@ function mapStateToProps(state) {
     active: state.peopleList.active,
   }
 }
+
 function mapDispatchToProps(dispatch) {
   return {
     setPeople: (people) => {
-      const action = setPeopleAC(people)
-      dispatch(action);
+      dispatch( setPeopleAC(people) );
     },
     setTotalCount: (count) => {
-      const action = setTotalCountAC(count);
-      dispatch(action);
+      dispatch( setTotalCountAC(count) );
     },
     toggleActivePage: (pageNumber) => {
-      const action = toggleActivePageAC(pageNumber);
-      dispatch(action);
+      dispatch( toggleActivePageAC(pageNumber) );
     }
   }
 }

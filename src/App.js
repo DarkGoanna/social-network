@@ -6,7 +6,7 @@ import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 
 
-function App(props) {
+const App = (props) => {
     return (
         <BrowserRouter>
             <div className="app">
