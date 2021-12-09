@@ -1,8 +1,10 @@
-import classes from './Home.module.css'
+import style from './Home.module.sass'
 
 function Home (props) {
+  // style
+  let {home} = style;
   return (
-    <section className={classes.home}>
+    <section className={home}>
       <h1>HOME PAGE</h1>
     </section>
   )

@@ -35,35 +35,39 @@ const initialState = {
   },
 }
 
-export function getNewValueAction(massage) {
+const dialogReduser = (state = initialState.dilogsPage, action) => {
+  switch (action.type) {
+    case actionTypes.updateState:
+      return {
+        ...state,
+        massages: [...state.massages, {
+          massage: state.newMassageValue,
+          image: {
+            url: 'https://api.lorem.space/image/face?w=150&h=150',
+          }
+        }],
+        newMassageValue: '',
+      };
+    case actionTypes.newValue:
+      return {
+        ...state,
+        newMassageValue: action.massage,
+      };
+  }
+  return state;
+}
+
+export default dialogReduser;
+
+export const getNewValueAC = (massage) => {
   return {
     type: actionTypes.newValue,
     massage: massage,
   }
 }
 
-export function getUpdatedStateAction() {
+export const getUpdatedStateAC = () => {
   return {
     type: actionTypes.updateState,
   }
 }
-
-function dialogReduser(state = initialState.dilogsPage, action) {
-  switch (action.type) {
-    case actionTypes.updateState:
-      state.massages.push({
-        massage: state.newMassageValue,
-        image: {
-          url: 'https://api.lorem.space/image/face?w=150&h=150',
-        }
-      });
-      state.newMassageValue = '';
-      break;
-    case actionTypes.newValue:
-      state.newMassageValue = action.massage;
-      break;
-  }
-  return state;
-}
-
-export default dialogReduser;

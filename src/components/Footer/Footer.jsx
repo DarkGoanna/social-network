@@ -1,11 +1,13 @@
-import classes from './Footer.module.css'
+import style from './Footer.module.sass'
 
 function Footer () {
-  return (
-        <footer className={classes.footer}>
+    // style
+    let {footer, inner, copyright} = style
+    return (
+        <footer className={footer}>
             <div className="container">
-                <div className={classes.inner}>
-                    <p className={classes.copyright}>made with love</p>
+                <div className={inner}>
+                    <p className={copyright}>made with love</p>
                 </div>
             </div>
         </footer>

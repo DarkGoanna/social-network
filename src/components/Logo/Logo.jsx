@@ -1,8 +1,11 @@
-import classes from './Logo.module.css'
+import style from './Logo.module.sass'
 
 function Logo (props) {
+  // style
+  let {logo} = style;
+
   return (
-    <div className={classes.logo}>
+    <div className={logo}>
       <a href="/">
         <img src="http://assets.stickpng.com/images/585990234f6ae202fedf28cf.png" alt="logo" />
       </a>
