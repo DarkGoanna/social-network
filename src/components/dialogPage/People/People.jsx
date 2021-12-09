@@ -1,63 +1,35 @@
 import style from './People.module.sass';
-import * as axios from 'axios';
-import React from 'react';
 
-class People extends React.Component {
-  componentDidMount = () => {
-    const count = this.props.countOnPage;
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${count}`).then(response => {
-      this.props.setPeople(response.data.items);
-      this.props.setTotalCount(response.data.totalCount)
-    })
+const People = (props) => {
+  // style
+  let {peopleList, pagination, paginationButton, active} = style;
+
+  // props
+  let {people, totalCount, countOnPage, activeNumber, toggleActivePage} = props;
+
+  // people names
+  const names = people.map(person => <li>{person.name}</li>);
+
+  // pagination
+  const buttonsCount = Math.ceil(totalCount / countOnPage);
+  const buttons = [];
+
+  for (let i = 1; i <= buttonsCount; i++) {
+    const classes = activeNumber === i ? paginationButton + ' ' + active : paginationButton;
+
+    buttons.push(<button className={classes} onClick={()=>{toggleActivePage(i)}}>{i}</button>)
   }
 
-  /**
-   * @param {number} pageNumber номер текущей страницы
-   */
-  showPage = (pageNumber) => {
-    const count = this.props.countOnPage;
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${count}&page=${pageNumber}`)
-      .then(response => {
-        this.props.setPeople(response.data.items);
-      })
-  }
-
-  /**
-   * @param {number} pageNumber номер текущей страницы
-   */
-  toggleActivePage = (pageNumber) => {
-    this.props.toggleActivePage(pageNumber);
-    this.showPage(pageNumber);
-  }
-
-  render = () => {
-    // style
-    const {peopleList, pagination, paginationButton, active} = style;
-
-    // people names
-    const names = this.props.people.map(person => <li>{person.name}</li>);
-
-    // pagination
-    const buttonsCount = Math.ceil(this.props.totalCount / this.props.countOnPage);
-    const buttons = [];
-
-    for (let i = 1; i <= buttonsCount; i++) {
-      const classes = this.props.active === i ? paginationButton + ' ' + active : paginationButton;
-
-      buttons.push(<button className={classes} onClick={()=>{this.toggleActivePage(i)}}>{i}</button>)
-    }
-
-    return (
-      <div>
-        <ul className={peopleList}>
-          {names}
-        </ul>
-        <div className={pagination}>
-          {buttons}
-        </div>
+  return (
+    <div>
+      <ul className={peopleList}>
+        {names}
+      </ul>
+      <div className={pagination}>
+        {buttons}
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default People;
