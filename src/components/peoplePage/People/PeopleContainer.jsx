@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { setPeopleAC, setTotalCountAC, toggleActivePageAC, toggleLoadStatusAC } from "../../../store/redusers/people-reduser";
+import { setPeople, setTotalCount, toggleActivePage, toggleLoadStatus } from "../../../store/redusers/people-reduser";
 import People from "./People";
 import * as axios from 'axios';
 import React from 'react';
@@ -58,21 +58,6 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    setPeople: (people) => {
-      dispatch( setPeopleAC(people) );
-    },
-    setTotalCount: (count) => {
-      dispatch( setTotalCountAC(count) );
-    },
-    toggleActivePage: (pageNumber) => {
-      dispatch( toggleActivePageAC(pageNumber) );
-    },
-    toggleLoadStatus: (status) => {
-      dispatch(toggleLoadStatusAC(status))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PeopleContainer);
+export default connect(mapStateToProps, {
+  setPeople, setTotalCount, toggleActivePage, toggleLoadStatus
+})(PeopleContainer);

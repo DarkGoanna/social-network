@@ -68,7 +68,7 @@ export default dialogReduser;
  * @param {string} massage текущее значение в текстовом поле
  * @returns {object} action
  */
-export const getNewValueAC = (massage) => {
+export const setNewMassageValueToState = (massage) => {
   return {
     type: actionTypes.newValue,
     massage: massage,
@@ -78,4 +78,4 @@ export const getNewValueAC = (massage) => {
 /**
  * @returns {object} action
  */
-export const getUpdatedStateAC = () => ({ type: actionTypes.updateState })
+export const updateState = () => ({ type: actionTypes.updateState }) 

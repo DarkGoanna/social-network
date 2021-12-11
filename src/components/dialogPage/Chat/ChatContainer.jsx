@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { getNewValueAC, getUpdatedStateAC } from '../../../store/redusers/dialog-reduser'
+import { setNewMassageValueToState, updateState } from '../../../store/redusers/dialog-reduser'
 import Chat from './Chat'
 
 function mapStateToProps(state) {
@@ -9,16 +9,7 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch){
-  return {
-    setNewMassageValueToState: (text) => {
-      dispatch( getNewValueAC(text) );
-    },
-    updateState: () => {
-      dispatch( getUpdatedStateAC() );
-    }
-  }
-}
-
-const ChatContainer = connect(mapStateToProps, mapDispatchToProps)(Chat);
+const ChatContainer = connect(mapStateToProps, {
+  setNewMassageValueToState, updateState
+})(Chat);
 export default ChatContainer

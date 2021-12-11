@@ -51,7 +51,7 @@ export default peopleReduser;
  * @param {array} people массив с людьми, каждый человек представлен в виде обьекта
  * @returns {object} action
  */
-export const setPeopleAC = (people) => {
+export const setPeople = (people) => {
   return {
     type: actionTypes.setPeople,
     people,
@@ -62,7 +62,7 @@ export const setPeopleAC = (people) => {
  * @param {number} count общее колличество людей на сервере
  * @returns {object} action
  */
-export const setTotalCountAC = (count) => {
+export const setTotalCount = (count) => {
   return {
     type: actionTypes.setTotalCount,
     count,
@@ -73,7 +73,7 @@ export const setTotalCountAC = (count) => {
  * @param {number} pageNumber номер текущей страницы
  * @returns {object} action
  */
-export const toggleActivePageAC = (pageNumber) => {
+export const toggleActivePage = (pageNumber) => {
   return {
     type: actionTypes.toggleActive,
     pageNumber,
@@ -84,7 +84,7 @@ export const toggleActivePageAC = (pageNumber) => {
  * @param {boolean} status (true - в процессе загрузки) / (false - загрузки нет)
  * @returns action
  */
-export const toggleLoadStatusAC = (status) => {
+export const toggleLoadStatus = (status) => {
   return {
     type: actionTypes.toggleLoadStatus,
     status
