@@ -1,14 +1,16 @@
 const actionTypes = {
   setPeople: 'SET-PEOPLE',
   setTotalCount: 'SET-TOTAL-COUNT',
-  toggleActive: 'TOGGLE-ACTIVE'
+  toggleActive: 'TOGGLE-ACTIVE',
+  toggleLoadStatus: 'TOGGLE-LOAD-STATUS'
 }
 
 const initialState = {
   people: [],
   totalCount: null,
-  countOnPage: 10,
+  countOnPage: 20,
   active: 1,
+  isLoading: false,
 }
 
 /**
@@ -33,6 +35,11 @@ const peopleReduser = (state = initialState, action) => {
       return {
         ...state,
         active: action.pageNumber
+      }
+    case actionTypes.toggleLoadStatus:
+      return {
+        ...state,
+        isLoading: action.status
       }
   }
   return state;
@@ -70,5 +77,16 @@ export const toggleActivePageAC = (pageNumber) => {
   return {
     type: actionTypes.toggleActive,
     pageNumber,
+  }
+}
+
+/**
+ * @param {boolean} status (true - в процессе загрузки) / (false - загрузки нет)
+ * @returns action
+ */
+export const toggleLoadStatusAC = (status) => {
+  return {
+    type: actionTypes.toggleLoadStatus,
+    status
   }
 }

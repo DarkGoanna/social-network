@@ -10,6 +10,7 @@ function Menu (props) {
 			<ul className={list}>
 				<li><NavLink to="/">Home</NavLink></li>
 				<li><NavLink to="/dialogs">Dialogs</NavLink></li>
+				<li><NavLink to="/people">People</NavLink></li>
 			</ul>
 		</nav>
 	)
