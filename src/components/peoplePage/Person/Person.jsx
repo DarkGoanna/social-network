@@ -1,6 +1,7 @@
 import style from './Person.module.sass';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
+import * as axios from 'axios';
+import { usersAPI } from '../../../api/api';
 
 const Person = (props) => {
   // style
@@ -15,32 +16,20 @@ const Person = (props) => {
   const followButton = followed ? 
 
   <button onClick={ () => {
-    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
-      withCredentials: true,
-      'API-KEY': 'dba584c2-162e-4040-93e2-d7fb7943260c',
-      headers: {
-        'API-KEY': 'dba584c2-162e-4040-93e2-d7fb7943260c'
-      }
-    }).then(response => {
-      if (response.data.resultCode === 0) {
+    usersAPI.unfollow(id).then(data => {
+      if (data.resultCode === 0) {
         unfollow(id);
       }
     })
-    unfollow(id);
   } }>{'Отписаться'}</button> : 
 
   <button onClick={ () => {
-    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
-      withCredentials: true,
-      headers: {
-        'API-KEY': 'dba584c2-162e-4040-93e2-d7fb7943260c'
-      }
-    }).then(response => {
-      if (response.data.resultCode === 0) {
+    usersAPI.follow(id).then(data => {
+      if (data.resultCode === 0) {
         follow(id);
       }
     })
-  } }>{'Подписаься'}</button> ;
+  } }>{'Подписаться'}</button> ;
 
   return (
     <div>
