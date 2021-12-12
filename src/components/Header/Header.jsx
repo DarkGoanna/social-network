@@ -1,10 +1,14 @@
 import style from './Header.module.sass'
 import Logo from '../Logo/Logo';
 import Menu from '../Menu/Menu';
+import { NavLink } from 'react-router-dom';
 
-function Header () {
+function Header (props) {
     // style
-    let { header, inner } = style;
+    const { header, inner } = style;
+
+    // props
+    const {isAuthorized, name} = props;
 
     return (
         <header className={header}>
@@ -12,6 +16,9 @@ function Header () {
                 <div className={inner}>
                     <Logo/>
                     <Menu/>
+                    <div>
+                        {isAuthorized ? name : <NavLink to={'/login'}>Login</NavLink>}
+                    </div>
                 </div>
             </div>
         </header>

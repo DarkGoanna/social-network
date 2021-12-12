@@ -1,5 +1,5 @@
 import style from './PeopleList.module.sass';
-import People from '../People/PeopleContainer';
+import PeopleContainer from '../People/PeopleContainer';
 
 const PropleList = (props) => {
   // style
@@ -7,7 +7,7 @@ const PropleList = (props) => {
 
   return (
     <div className={people}>
-        <People/>
+        <PeopleContainer/>
     </div>
   )
 }

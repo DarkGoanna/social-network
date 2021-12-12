@@ -1,9 +1,9 @@
-const actionTypes = {
-  setPeople: 'SET-PEOPLE',
-  setTotalCount: 'SET-TOTAL-COUNT',
-  toggleActive: 'TOGGLE-ACTIVE',
-  toggleLoadStatus: 'TOGGLE-LOAD-STATUS'
-}
+const SET_PEOPLE = 'SET_PEOPLE';
+const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
+const TOGGLE_ACTIVE = 'TOGGLE_ACTIVE';
+const TOGGLE_LOAD_STATUS = 'TOGGLE_LOAD_STATUS';
+const FOLLOW = 'FOLLOW';
+const UNFOLLOW = 'UNFOLLOW';
 
 const initialState = {
   people: [],
@@ -13,36 +13,56 @@ const initialState = {
   isLoading: false,
 }
 
-/**
- * @param {object} state 
- * @param {object} action включает обязательное свойство 'type' и необязательные дополнительные свойства
- * @returns {object} state
- */
 const peopleReduser = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.setPeople:
+    case SET_PEOPLE:
       return {
         ...state,
         people: [...action.people]
       }
-    case actionTypes.setTotalCount:
+    case SET_TOTAL_COUNT:
       return {
         ...state,
         totalCount: action.count,
 
       }
-    case actionTypes.toggleActive:
+    case TOGGLE_ACTIVE:
       return {
         ...state,
         active: action.pageNumber
       }
-    case actionTypes.toggleLoadStatus:
+    case TOGGLE_LOAD_STATUS:
       return {
         ...state,
         isLoading: action.status
       }
+    case FOLLOW: {
+      const currentPersonIndex = state.people.findIndex(person => person.id === action.personID);
+      return {
+        ...state, // весь state
+        people: state.people.map(person => {
+          if (person.id === action.personID) {
+            person.followed = true;
+          }
+          return person;
+        })
+      }
+    }
+    case UNFOLLOW: {
+      const currentPersonIndex = state.people.findIndex(person => person.id === action.personID);
+      return {
+        ...state, // весь state
+        people: state.people.map(person => {
+          if (person.id === action.personID) {
+            person.followed = false;
+          }
+          return person;
+        })
+      }
+    }
+    default:
+      return state;
   }
-  return state;
 }
 
 export default peopleReduser;
@@ -53,7 +73,7 @@ export default peopleReduser;
  */
 export const setPeople = (people) => {
   return {
-    type: actionTypes.setPeople,
+    type: SET_PEOPLE,
     people,
   }
 }
@@ -64,7 +84,7 @@ export const setPeople = (people) => {
  */
 export const setTotalCount = (count) => {
   return {
-    type: actionTypes.setTotalCount,
+    type: SET_TOTAL_COUNT,
     count,
   }
 }
@@ -75,7 +95,7 @@ export const setTotalCount = (count) => {
  */
 export const toggleActivePage = (pageNumber) => {
   return {
-    type: actionTypes.toggleActive,
+    type: TOGGLE_ACTIVE,
     pageNumber,
   }
 }
@@ -86,7 +106,29 @@ export const toggleActivePage = (pageNumber) => {
  */
 export const toggleLoadStatus = (status) => {
   return {
-    type: actionTypes.toggleLoadStatus,
+    type: TOGGLE_LOAD_STATUS,
     status
+  }
+}
+
+/**
+ * @param {number} personID id человека для подписки
+ * @returns {object} action
+ */
+export const follow = (personID) => {
+  return {
+    type: FOLLOW,
+    personID
+  }
+}
+
+/**
+ * @param {number} personID id человека для отписки
+ * @returns {object} action
+ */
+export const unfollow = (personID) => {
+  return {
+    type: UNFOLLOW,
+    personID
   }
 }

@@ -1,7 +1,5 @@
-const actionTypes = {
-  updateState: 'UPDATE-DIALOGS-MASSAGES',
-  newValue: 'UPDATE-VALUE',
-}
+const UPDATE_DIALOGS_MASSAGES = 'UPDATE_DIALOGS_MASSAGES';
+const UPDATE_VALUE = 'UPDATE_VALUE';
 
 const initialState = {
   dilogsPage: {
@@ -35,14 +33,9 @@ const initialState = {
   },
 }
 
-/**
- * @param {object} state 
- * @param {object} action включает обязательное свойство 'type' и необязательные дополнительные свойства
- * @returns {object} state
- */
 const dialogReduser = (state = initialState.dilogsPage, action) => {
   switch (action.type) {
-    case actionTypes.updateState:
+    case UPDATE_DIALOGS_MASSAGES:
       return {
         ...state,
         massages: [...state.massages, {
@@ -53,13 +46,14 @@ const dialogReduser = (state = initialState.dilogsPage, action) => {
         }],
         newMassageValue: '',
       };
-    case actionTypes.newValue:
+    case UPDATE_VALUE:
       return {
         ...state,
         newMassageValue: action.massage,
       };
+    default:
+      return state;
   }
-  return state;
 }
 
 export default dialogReduser;
@@ -70,12 +64,12 @@ export default dialogReduser;
  */
 export const setNewMassageValueToState = (massage) => {
   return {
-    type: actionTypes.newValue,
-    massage: massage,
+    type: UPDATE_DIALOGS_MASSAGES,
+    massage,
   }
 }
 
 /**
  * @returns {object} action
  */
-export const updateState = () => ({ type: actionTypes.updateState }) 
+export const updateState = () => ({ type: UPDATE_VALUE }) 
