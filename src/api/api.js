@@ -15,3 +15,24 @@ export const usersAPI = {
   follow: id => instance.post(`follow/${id}`).then(response => response.data),
   unfollow: id => instance.delete(`follow/${id}`).then(response => response.data),
 }
+
+export const profileAPI = {
+  getProfile: (profileID) => instance.get(`profile/${profileID}`)
+    .then(response => response),
+  getStatus: (profileID) => instance.get(`profile/status/${profileID}`)
+    .then(response => response.data),
+  updateStatus: (status) => instance.put('profile/status/', { status: status })
+    .then(response => {
+      if (response.data.resultCode === 0) {
+        return status;
+      }
+    }),
+}
+
+export const authAPI = {
+  authMe: () => instance.get('auth/me').then(response => {
+    if (response.data.resultCode === 0) {
+      return response.data.data;
+    }
+  }),
+}

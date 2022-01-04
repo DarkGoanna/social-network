@@ -1,5 +1,4 @@
 const UPDATE_DIALOGS_MASSAGES = 'UPDATE_DIALOGS_MASSAGES';
-const UPDATE_VALUE = 'UPDATE_VALUE';
 
 const initialState = {
   dilogsPage: {
@@ -39,17 +38,11 @@ const dialogReduser = (state = initialState.dilogsPage, action) => {
       return {
         ...state,
         massages: [...state.massages, {
-          massage: state.newMassageValue,
+          massage: action.newMassageValue,
           image: {
             url: 'https://api.lorem.space/image/face?w=150&h=150',
           }
         }],
-        newMassageValue: '',
-      };
-    case UPDATE_VALUE:
-      return {
-        ...state,
-        newMassageValue: action.massage,
       };
     default:
       return state;
@@ -59,17 +52,6 @@ const dialogReduser = (state = initialState.dilogsPage, action) => {
 export default dialogReduser;
 
 /**
- * @param {string} massage текущее значение в текстовом поле
  * @returns {object} action
  */
-export const setNewMassageValueToState = (massage) => {
-  return {
-    type: UPDATE_DIALOGS_MASSAGES,
-    massage,
-  }
-}
-
-/**
- * @returns {object} action
- */
-export const updateState = () => ({ type: UPDATE_VALUE }) 
+export const updateState = (newMassageValue) => ({ type: UPDATE_DIALOGS_MASSAGES, newMassageValue }) 

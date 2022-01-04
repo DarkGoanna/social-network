@@ -1,15 +1,16 @@
 import { connect } from 'react-redux'
-import { setNewMassageValueToState, updateState } from '../../../store/redusers/dialog-reduser'
+import { compose } from 'redux'
+import withAuthRedirect from '../../../hoc/withAuthRedirect'
+import { updateState } from '../../../store/redusers/dialog-reduser'
 import Chat from './Chat'
 
 function mapStateToProps(state) {
   return {
     massages: state.dilogsPage.massages,
-    newMassageValue: state.dilogsPage.newMassageValue
   }
 }
 
-const ChatContainer = connect(mapStateToProps, {
-  setNewMassageValueToState, updateState
-})(Chat);
-export default ChatContainer
+export default compose(
+  connect(mapStateToProps, {updateState}),
+  withAuthRedirect
+)(Chat);

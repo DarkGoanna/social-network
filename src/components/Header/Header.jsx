@@ -8,7 +8,7 @@ function Header (props) {
     const { header, inner } = style;
 
     // props
-    const {isAuthorized, name} = props;
+    const {isAuthorized, name, id} = props;
 
     return (
         <header className={header}>
@@ -17,7 +17,10 @@ function Header (props) {
                     <Logo/>
                     <Menu/>
                     <div>
-                        {isAuthorized ? name : <NavLink to={'/login'}>Login</NavLink>}
+                        {isAuthorized ? 
+                            <NavLink to={`/profile/${id}`}>{name}</NavLink> : 
+                            <NavLink to={'/login'}>Login</NavLink>
+                        }
                     </div>
                 </div>
             </div>

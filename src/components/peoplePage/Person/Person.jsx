@@ -1,6 +1,5 @@
 import style from './Person.module.sass';
 import { NavLink } from 'react-router-dom';
-import * as axios from 'axios';
 import { usersAPI } from '../../../api/api';
 
 const Person = (props) => {
@@ -9,33 +8,39 @@ const Person = (props) => {
 
   // props 
   const {id, name, photos, followed} = props.personData;
-  const {follow, unfollow} = props;
+  const {follow, unfollow, changingFolowingStatus, changeFolowingStatus} = props;
 
-  const photoURL = photos.small ? photos.small : '';
 
+  const isDisabled = changingFolowingStatus.some(disabled => disabled === id);
   const followButton = followed ? 
 
-  <button onClick={ () => {
-    usersAPI.unfollow(id).then(data => {
-      if (data.resultCode === 0) {
-        unfollow(id);
-      }
-    })
-  } }>{'Отписаться'}</button> : 
+    <button onClick={() => {
+      changeFolowingStatus(true, id);
+      usersAPI.unfollow(id)
+        .then(data => {
+          if (data.resultCode === 0) {
+            unfollow(id);
+          }
+          changeFolowingStatus(false, id);
+        })
+    }} disabled={isDisabled} >{'Отписаться'}</button> : 
 
-  <button onClick={ () => {
-    usersAPI.follow(id).then(data => {
-      if (data.resultCode === 0) {
-        follow(id);
-      }
-    })
-  } }>{'Подписаться'}</button> ;
+    <button onClick={() => {
+      changeFolowingStatus(true, id);
+      usersAPI.follow(id)
+        .then(data => {
+          if (data.resultCode === 0) {
+            follow(id);
+            changeFolowingStatus(false, id);
+          }
+        })
+    }} disabled={isDisabled} >{'Подписаться'}</button> ;
 
   return (
     <div>
       <NavLink to={`/profile/${id}`}>
         <div className={photo}>
-            <img src={photoURL} alt="" />
+            <img src={photos.small ? photos.small : ''} alt="" />
         </div>
       </NavLink>
       <p>{name}</p>

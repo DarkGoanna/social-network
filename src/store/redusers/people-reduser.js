@@ -1,9 +1,12 @@
+import { usersAPI } from '../../api/api';
+
 const SET_PEOPLE = 'SET_PEOPLE';
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
 const TOGGLE_ACTIVE = 'TOGGLE_ACTIVE';
 const TOGGLE_LOAD_STATUS = 'TOGGLE_LOAD_STATUS';
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
+const CHANGING_FOLOWING_STATUS = 'CHANGING_FOLOWING_STATUS';
 
 const initialState = {
   people: [],
@@ -11,6 +14,7 @@ const initialState = {
   countOnPage: 20,
   active: 1,
   isLoading: false,
+  changingFolowingStatus: [],
 }
 
 const peopleReduser = (state = initialState, action) => {
@@ -37,7 +41,6 @@ const peopleReduser = (state = initialState, action) => {
         isLoading: action.status
       }
     case FOLLOW: {
-      const currentPersonIndex = state.people.findIndex(person => person.id === action.personID);
       return {
         ...state, // весь state
         people: state.people.map(person => {
@@ -49,7 +52,6 @@ const peopleReduser = (state = initialState, action) => {
       }
     }
     case UNFOLLOW: {
-      const currentPersonIndex = state.people.findIndex(person => person.id === action.personID);
       return {
         ...state, // весь state
         people: state.people.map(person => {
@@ -60,6 +62,13 @@ const peopleReduser = (state = initialState, action) => {
         })
       }
     }
+    case CHANGING_FOLOWING_STATUS:
+      return {
+        ...state,
+        changingFolowingStatus: action.inProgress ?
+          [...state.changingFolowingStatus, action.personID] :
+          state.changingFolowingStatus.filter(id => id !== action.personID)
+      }
     default:
       return state;
   }
@@ -131,4 +140,31 @@ export const unfollow = (personID) => {
     type: UNFOLLOW,
     personID
   }
+}
+
+/**
+ * @param {number} personID id человека, на которого подписываются/отписываются
+ * @returns {object} action 
+ */
+export const changeFolowingStatus = (inProgress, personID) => {
+  return {
+    type: CHANGING_FOLOWING_STATUS,
+    personID,
+    inProgress
+  }
+}
+
+/**
+ * @param {number} count колличество людей
+ * @param {number} pageNumber номер текущей страницы
+ * @returns {function} thunk function
+ */
+export const getUsers = (count, pageNumber = 1) => (dispatch) => {
+  dispatch(toggleLoadStatus(true));
+
+  usersAPI.getUsers(count, pageNumber).then(data => {
+    dispatch(setPeople(data.items));
+    dispatch(setTotalCount(data.totalCount));
+    dispatch(toggleLoadStatus(false));
+  })
 }

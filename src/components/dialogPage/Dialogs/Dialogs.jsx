@@ -3,7 +3,7 @@ import ChatContainer from '../Chat/ChatContainer'
 
 function Dialogs (props) {
   // style
-  let { dialogs, inner, people, chat } = style;
+  let { dialogs, inner, chat } = style;
 
   return (
     <section className={dialogs}>

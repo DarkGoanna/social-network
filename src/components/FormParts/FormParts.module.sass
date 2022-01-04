@@ -1,0 +1,17 @@
+
+.inputWrapper
+  margin-bottom: 3px
+  & input,
+  & textarea
+    border: 2px solid #111
+    transition: .2s
+  & .errorMessage
+    display: none
+.hasError
+  & input,
+  & textarea
+    border-color: red
+    transition: .2s
+  & .errorMessage
+    display: block
+    color: red

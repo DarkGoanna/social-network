@@ -4,6 +4,7 @@ import Dialogs from './components/dialogPage/Dialogs/Dialogs';
 import Footer from './components/Footer/Footer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Home from './components/Home/Home';
+import Login from './components/Login/Login';
 import PeopleList from './components/peoplePage/PeopleList/PeopleList'
 import ProfileContainer from './components/profilePage/Profile/ProfileContainer';
 
@@ -19,6 +20,7 @@ const App = (props) => {
                         <Route path="/dialogs" render={() => <Dialogs />} />
                         <Route path="/people" render={() => <PeopleList />} />
                         <Route path="/profile/:first?" render={() => <ProfileContainer />} />
+                        <Route path="/login" render={() => <Login />} />
                     </div>
                 </main>
                 <Footer />
