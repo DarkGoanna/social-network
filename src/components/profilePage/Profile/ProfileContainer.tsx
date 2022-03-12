@@ -1,4 +1,4 @@
-import { setCurrentProfile, setCurrentStatus, updateStatus, setPhoto, checkOwner, currentProfilePhotosType } from '../../../store/redusers/profile-reduser'
+import { setCurrentProfile, setCurrentStatus, updateStatus, setPhoto, checkOwner, profilePhotosType } from '../../../store/redusers/profile-reduser'
 import { connect } from 'react-redux'
 import Profile from './Profile'
 import React from 'react'
@@ -8,10 +8,10 @@ import withAuthRedirect from '../../../hoc/withAuthRedirect'
 import {getAuthID, getCurrentProfile, getOwnerStatus} from '../../../store/Selectors/Selectors'
 import { rootState } from '../../../store/redux-store'
 
-type currentProfileType = {
+export type currentProfileType = {
   fullName: string 
   status: string 
-  photos: currentProfilePhotosType
+  photos: profilePhotosType
 }
 type mapStateToPropsType = {
   currentProfile: currentProfileType

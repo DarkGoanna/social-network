@@ -7,11 +7,11 @@ const SET_STATUS = 'SET_STATUS'
 const UPDATE_PHOTO = 'UPDATE_PHOTO'
 const SET_OWNER = 'SET_OWNER'
 
-export type currentProfilePhotosType = {
+export type profilePhotosType = {
   small: string
   large: string
 }
-type currentProfileType = {
+export type profileType = {
   userId?: number
   fullName?: string
   lookingForAJob?: boolean
@@ -26,11 +26,11 @@ type currentProfileType = {
     youtube: string
     mainLink: string
   }
-  photos?: currentProfilePhotosType
+  photos?: profilePhotosType
   status?: string
 }
 const initialState = {
-  currentProfile: null as null | currentProfileType,
+  currentProfile: null as null | profileType,
   isOwner: null as null | boolean,
 }
 type initialStateType = typeof initialState
@@ -75,12 +75,14 @@ export default profileReduser;
 type thunksType = ThunkAction<void, rootState, unknown, actionsTypes>
 
 export const setCurrentProfile = (id:number | null): thunksType => (dispatch) => {
-  profileAPI.getProfile(id)
-    .then((response:any) => {
-      if(response.data) {
-        dispatch(setProfile(response.data))
-      }
-    })
+  if (id) {
+    profileAPI.getProfile(id)
+      .then((response:any) => {
+        if(response.data) {
+          dispatch(setProfile(response.data))
+        }
+      })
+  }
 }
 
 export const setProfileInfo = (data: any): thunksType => (dispatch, getState) => {
@@ -111,7 +113,7 @@ export const setCurrentStatus = (id:number) => (dispatch:any) => {
 
 export const updateStatus = (status:string): thunksType => (dispatch) => {
   profileAPI.updateStatus(status)
-    .then((statusValue:string) => {
+    .then((statusValue) => {
       if(statusValue) {
         dispatch(setStatus(statusValue))
       }
@@ -131,7 +133,7 @@ export const setStatus = (status:string):setStatusType => {
 
 export const setPhoto = (photo:string):thunksType => (dispatch) => {
   profileAPI.setPhoto(photo)
-    .then((photos:currentProfilePhotosType) => {
+    .then((photos) => {
       if(photos) {
         dispatch(updatePhoto(photos))
       }
@@ -142,7 +144,7 @@ type updatePhotoType = {
   type: typeof UPDATE_PHOTO
   photos: any
 }
-const updatePhoto = (photos:currentProfilePhotosType):updatePhotoType => {
+const updatePhoto = (photos:profilePhotosType):updatePhotoType => {
   return {
     type: UPDATE_PHOTO,
     photos

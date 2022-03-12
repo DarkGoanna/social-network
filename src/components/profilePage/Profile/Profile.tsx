@@ -4,13 +4,8 @@ import Status from '../Status/Status'
 import EditInfo from './EditInfo/EditInfoContainer'
 import ReadInfo from './ReadInfo/ReadInfoContainer'
 import classNames from 'classnames'
-import { currentProfilePhotosType } from '../../../store/redusers/profile-reduser'
+import { currentProfileType } from './ProfileContainer'
 
-type currentProfileType = {
-  fullName: string 
-  status: string 
-  photos: currentProfilePhotosType
-}
 type ProfileType = {
   currentProfile: currentProfileType
   updateStatus: (status:string) => void

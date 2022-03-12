@@ -1,3 +1,4 @@
+import { resultCodeEnum, loginType, userDataType } from './../../api/api';
 import { stopSubmit } from 'redux-form'
 import { ThunkAction } from 'redux-thunk'
 import { authAPI } from '../../api/api'
@@ -42,8 +43,6 @@ export default authReduser;
 
 type thunksType = ThunkAction<void, rootState, unknown, actionsTypes>
 
-
-type userDataType = {}
 type setAuthUserDataType = {
   type: typeof SET_AUTH_USER_DATA
   userData: userDataType
@@ -60,9 +59,12 @@ export const setAuthUserData = (userData: userDataType, isAuthorized: boolean): 
 export const authMe = ():thunksType => {
   return (dispatch) => {
     authAPI.authMe()
-      .then((userData: any) => {
-        dispatch(setAuthUserData(userData, true));
-        dispatch(setAuthFinished(true));
+      .then((data) => {
+        if (data.resultCode === resultCodeEnum.Success) {
+          const userData = data.data;
+          dispatch(setAuthUserData(userData, true));
+          dispatch(setAuthFinished(true));
+        }
       })
   }
 }
@@ -70,14 +72,11 @@ export const authMe = ():thunksType => {
 export const login = (email: string, password: string) => {
   return (dispatch: any) => {
     authAPI.login(email, password)
-      .then((response:any) => {
-        if (response.resultCode === 0) {
+      .then((response: loginType) => {
+        if (response.resultCode === resultCodeEnum.Success) {
           dispatch(authMe())
         } else {
-          const massage = response.messages[0];
-          dispatch(stopSubmit('auth', {
-            _error: massage
-          }))
+          dispatch(stopSubmit('auth', {_error: response.messages[0]}))
         }
       })
   }
