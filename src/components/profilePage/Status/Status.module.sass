@@ -1,16 +1,51 @@
 .statusWrapper
+  transition: .2s
   position: relative
   & input,
   & span
     display: block
     padding: 5px 15px
     width: 100%
-    min-height: 20px
-    margin-top: 10px
+    height: 35px
+    border-radius: 8px
+    font-size: 18px
+    display: flex
+    align-items: center
+    justify-content: flex-start
   & span
-    border: 1px solid #fff
-    color: #fff
     cursor: pointer
   & input
-    border: 1px solid blue
-    color: blue
+    border: none
+    color: var(--color4)
+  & .readOnly
+    cursor: default
+  &:global(.active)
+    background: var(--color1)
+    box-shadow: 5px 5px 10px var(--color3)
+    transition: .2s
+    & legend
+      font-size: 0
+      transition: .2s
+    & input
+      background: var(--color1)
+      color: var(--color4)
+    & .iconWrapper::after
+      opacity: 0
+      transition: .2s
+.iconWrapper
+  position: relative
+  &::after
+    content: ''
+    display: block
+    width: 20px
+    height: 20px
+    position: absolute
+    top: 50%
+    right: 10px
+    transform: translateY(-50%)
+    background-image: url('../../../images/double-tap.png')
+    background-repeat: no-repeat
+    background-size: contain
+    background-position: center
+    opacity: 1
+    transition: .2s

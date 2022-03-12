@@ -1,32 +1,62 @@
-import { Route } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
-import Dialogs from './components/dialogPage/Dialogs/Dialogs';
-import Footer from './components/Footer/Footer';
-import HeaderContainer from './components/Header/HeaderContainer';
-import Home from './components/Home/Home';
-import Login from './components/Login/Login';
-import PeopleList from './components/peoplePage/PeopleList/PeopleList'
-import ProfileContainer from './components/profilePage/Profile/ProfileContainer';
+import React, { Suspense, lazy, useEffect } from 'react'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import HeaderContainer from './components/Header/HeaderContainer'
+import Footer from './components/Footer/Footer'
+import { isAuthorized, isAuthFinished } from './store/Selectors/Selectors'
+import { connect } from 'react-redux'
+import { authMe } from './store/redusers/auth-reduser'
 
+const Login = lazy(() => import('./components/Login/Login'))
+const Dialogs = lazy(() => import('./components/dialogPage/Dialogs/Dialogs'))
+const PeopleList = lazy(() => import('./components/peoplePage/PeopleList/PeopleList'))
+const ProfileContainer = lazy(() => import('./components/profilePage/Profile/ProfileContainer'))
 
 const App = (props) => {
     return (
-        <BrowserRouter>
+        <Router>
             <div className="app">
                 <HeaderContainer />
                 <main className="content">
                     <div className="container">
-                        <Route exact path="/" render={() => <Home />} />
-                        <Route path="/dialogs" render={() => <Dialogs />} />
-                        <Route path="/people" render={() => <PeopleList />} />
-                        <Route path="/profile/:first?" render={() => <ProfileContainer />} />
-                        <Route path="/login" render={() => <Login />} />
+                        <Suspense fallback={<div>Загрузка...</div>}>
+                            <Switch>
+                                <Route exact path="/">
+                                    {props.isAuthFinished
+                                        ? props.isAuthorized
+                                            ? <Redirect to="/profile" />
+                                            : <Redirect to="/people" />
+                                        : <div>Загрузка...</div>
+                                    }
+                                </Route>
+                                <Route path="/dialogs" render={() => <Dialogs />} />
+                                <Route path="/people" render={() => <PeopleList />} />
+                                <Route path="/profile/:first?" render={() => <ProfileContainer />} />
+                                <Route path="/login" render={() => <Login />} />
+                            </Switch>
+                        </Suspense>
                     </div>
                 </main>
                 <Footer />
             </div>
-        </BrowserRouter>
+        </Router>
     )
 }
 
-export default App;
+const AppContaner = (props) => {
+
+    useEffect(() => {
+        props.authMe();
+    });
+
+    return (
+        <App isAuthorized={props.isAuthorized} isAuthFinished={props.isAuthFinished} />
+    )
+}
+
+const mapStateToProps = (state) => {
+    return {
+        isAuthorized: isAuthorized(state),
+        isAuthFinished: isAuthFinished(state)
+    }
+}
+export default connect(mapStateToProps, { authMe })(AppContaner);

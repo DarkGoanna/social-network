@@ -1,3 +1,10 @@
+:root {
+  --color1: #C4DFE6;
+  --color2: #66A5AD;
+  --color3: #07575B;
+  --color4: #003B46;
+}
+
 .title-1,
 h1 {
   font-weight: 400;
@@ -32,7 +39,6 @@ h3 {
 }
 
 .content {
-  background: gainsboro;
   width: 100%;
   min-height: calc(100vh - 120px);
   padding: 30px 0;
@@ -71,7 +77,7 @@ body {
   font-weight: 300;
   font-size: 16px;
   line-height: 1.2;
-  background-color: #fff;
+  background-color: #eee;
   overflow-x: hidden;
 }
 
@@ -86,6 +92,73 @@ textarea {
   font-family: "Open Sans", sans-serif;
 }
 
+textarea {
+  resize: none;
+  height: 70px;
+  transition: .2s;
+  overflow-y: hidden;
+}
+textarea::-webkit-scrollbar {
+ width: 0px;
+}
+textarea:focus {
+  height: 150px;
+  transition: .2s;
+}
+textarea,
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  display: block;
+  padding: 5px 15px;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  height: 35px;
+}
+
 svg {
   pointer-events: none;
+}
+
+fieldset {
+  padding: 5px 10px;
+  border-color: #ccc;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 5px 5px 10px #111;
+  font-size: 18px
+}
+legend {
+  margin-left: 15px;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.btn {
+  width: 200px;
+  height: 45px;
+  background-color: var(--color4);
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid var(--color4);
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .2s;
+}
+.btn:hover {
+  color: var(--color4);
+  background-color: transparent;
+  transition: .2s;
 }

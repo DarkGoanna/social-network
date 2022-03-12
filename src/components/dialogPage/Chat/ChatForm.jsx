@@ -1,9 +1,6 @@
-import Field from "redux-form/lib/Field";
-import reduxForm from "redux-form/lib/reduxForm";
-import { required, maxlength } from "../../../utility/validations/validations";
-import Textarea from "../../FormParts/Textarea/Textarea";
-
-const maxlengthValidator = maxlength(50);
+import Field from 'redux-form/lib/Field';
+import reduxForm from 'redux-form/lib/reduxForm';
+import Textarea from '../../FormParts/Textarea/Textarea';
 
 const form = (props) => {
   return (
@@ -11,25 +8,20 @@ const form = (props) => {
       <Field 
         name="newMassage" 
         placeholder="Новое сообщение"
-        component={Textarea} 
-        validate={[required, maxlengthValidator]}
+        component={Textarea}
       />
-      <button type="submit">Send</button>
+      <button type="submit" className="btn">Send</button>
     </form>
   )
 }
 
 const ChatFormRedux = reduxForm({form: 'chat'})(form);
 
-const ChatForm = (props) => {
-  // props
-  const {updateState} = props;
+const ChatForm = ({updateState}) => {
+  const submitForm = (values) => updateState(values.newMassage);
 
-  const submitForm = (values) => {
-    updateState(values.newMassage);
-  }
   return (
-    <ChatFormRedux onSubmit={submitForm} />
+    <ChatFormRedux onSubmit={submitForm}/>
   )
 }
 

@@ -1,0 +1,20 @@
+.pagination
+  padding: 25px 0
+  display: flex
+  align-items: center
+  justify-content: center
+  flex-wrap: wrap
+  gap: 5px
+.paginationButton
+  padding: 5px
+  cursor: pointer
+  list-style: none
+  transition: .2s
+  &:hover
+    background: var(--color2)
+    transition: .2s
+  &:global(.active)
+    background: var(--color3)
+    color: #fff
+    font-weight: 600
+    transition: .2s

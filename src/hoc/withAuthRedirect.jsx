@@ -1,9 +1,10 @@
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { isAuthorized } from "../store/Selectors/Selectors";
 
 const mapAuthStateToProps = (state) => {
   return {
-    isAuthorized: state.auth.isAuthorized
+    isAuthorized: isAuthorized(state)
   }
 }
 
